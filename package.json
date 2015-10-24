@@ -1,0 +1,24 @@
+{
+  "name": "rollup-plugin-json",
+  "version": "0.1.0",
+  "main": "dist/rollup-plugin-json.cjs.js",
+  "jsnext:main": "dist/rollup-plugin-json.es6.js",
+  "devDependencies": {
+    "eslint": "^1.7.3",
+    "gobble": "^0.10.2",
+    "gobble-cli": "^0.6.0",
+    "gobble-rollup-babel": "^0.6.1",
+    "mocha": "^2.3.3"
+  },
+  "scripts": {
+    "test": "mocha",
+    "pretest": "npm run build",
+    "build": "gobble build -f dist",
+    "prepublish": "test"
+},
+"files": [
+    "src",
+    "dist",
+    "README.md"
+]
+}
