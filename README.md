@@ -7,8 +7,6 @@ import config from './config.json';
 console.log( `running version ${config.version}` );
 ```
 
-**experimental, depends on unreleased version of Rollup**
-
 
 ## Installation
 
