@@ -1,39 +1,34 @@
-var assert = require( 'assert' );
-var rollup = require( 'rollup' );
-var json = require( '..' );
+import test from 'ava';
+import { rollup } from 'rollup';
+import json from '..';
+import sms from 'source-map-support';
 
-require( 'source-map-support' ).install();
+sms.install();
 
-process.chdir( __dirname );
+test( 'converting json', t => {
+	return rollup({
+		entry: 'samples/basic/main.js',
+		plugins: [ json() ]
+	}).then( bundle => {
+		const { code } = bundle.generate();
 
-describe( 'rollup-plugin-json', function () {
-	it( 'converts json', function () {
-		return rollup.rollup({
-			entry: 'samples/basic/main.js',
-			plugins: [ json() ]
-		}).then( function ( bundle ) {
-			var generated = bundle.generate();
-			var code = generated.code;
-
-			var fn = new Function( 'assert', code );
-			fn( assert );
-		});
+		const fn = new Function( 't', code );
+		fn( t );
 	});
+});
 
-	it( 'generates named exports', function () {
-		return rollup.rollup({
-			entry: 'samples/named/main.js',
-			plugins: [ json() ]
-		}).then( function ( bundle ) {
-			var generated = bundle.generate({ format: 'cjs' });
-			var code = generated.code;
+test( 'generating named exports', t => {
+	return rollup({
+		entry: 'samples/named/main.js',
+		plugins: [ json() ]
+	}).then( bundle => {
+		const { code } = bundle.generate({ format: 'cjs' });
 
-			var exports = {};
-			var fn = new Function( 'exports', code );
-			fn( exports );
+		let exports = {};
+		const fn = new Function( 'exports', code );
+		fn( exports );
 
-			assert.equal( exports.version, '1.33.7' );
-			assert.equal( code.indexOf( 'this-should-be-excluded' ), -1, 'should exclude unused properties' );
-		});
+		t.is( exports.version, '1.33.7' );
+		t.ok( code.indexOf( 'this-should-be-excluded' ) === -1, 'should exclude unused properties' );
 	});
 });

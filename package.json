@@ -4,14 +4,14 @@
   "main": "dist/rollup-plugin-json.cjs.js",
   "jsnext:main": "dist/rollup-plugin-json.es6.js",
   "devDependencies": {
+    "ava": "^0.3.0",
     "eslint": "^1.7.3",
-    "mocha": "^2.3.3",
     "rollup": "^0.20.5",
     "rollup-plugin-babel": "^1.0.0",
     "source-map-support": "^0.3.3"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "ava",
     "pretest": "npm run build",
     "build": "rollup -c -f cjs -o dist/rollup-plugin-json.cjs.js && rollup -c -f es6 -o dist/rollup-plugin-json.es6.js",
     "prebuild": "rm -rf dist/*",
