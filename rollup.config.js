@@ -4,6 +4,7 @@ var external = Object.keys( require( './package.json' ).dependencies );
 
 export default {
 	entry: 'src/index.js',
-	plugins: [ babel() ],
-	external: external
+	plugins: [ babel({ sourceMap: true }) ],
+	external: external,
+	sourceMap: true
 };
