@@ -3,8 +3,14 @@
 Convert .json files to ES6 modules:
 
 ```js
-import config from './config.json';
-console.log( `running version ${config.version}` );
+// import a single property from a JSON file,
+// discarding the rest
+import { version } from './package.json';
+console.log( `running version ${version}` );
+
+// import the whole file as an object
+import pkg from './package.json';
+console.log( `running version ${pkg.version}` );
 ```
 
 
