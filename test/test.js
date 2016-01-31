@@ -1,6 +1,7 @@
 var assert = require( 'assert' );
 var rollup = require( 'rollup' );
 var json = require( '..' );
+var npm = require( 'rollup-plugin-npm' );
 
 require( 'source-map-support' ).install();
 
@@ -34,6 +35,19 @@ describe( 'rollup-plugin-json', function () {
 
 			assert.equal( exports.version, '1.33.7' );
 			assert.equal( code.indexOf( 'this-should-be-excluded' ), -1, 'should exclude unused properties' );
+		});
+	});
+
+	it( 'resolves extensionless imports in conjunction with npm plugin', function () {
+		return rollup.rollup({
+			entry: 'samples/extensionless/main.js',
+			plugins: [ npm({ extensions: [ '.js', '.json' ]}), json() ]
+		}).then( function ( bundle ) {
+			var generated = bundle.generate();
+			var code = generated.code;
+
+			var fn = new Function( 'assert', code );
+			fn( assert );
 		});
 	});
 });
