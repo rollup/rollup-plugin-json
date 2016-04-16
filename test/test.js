@@ -1,7 +1,7 @@
 var assert = require( 'assert' );
 var rollup = require( 'rollup' );
 var json = require( '..' );
-var npm = require( 'rollup-plugin-npm' );
+var npm = require( 'rollup-plugin-node-resolve' );
 
 require( 'source-map-support' ).install();
 
