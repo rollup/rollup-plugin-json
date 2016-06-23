@@ -4,6 +4,8 @@ export default function json ( options = {} ) {
 	const filter = createFilter( options.include, options.exclude );
 
 	return {
+		name: 'json',
+
 		transform ( json, id ) {
 			if ( id.slice( -5 ) !== '.json' ) return null;
 			if ( !filter( id ) ) return null;
