@@ -21,6 +21,19 @@ describe( 'rollup-plugin-json', function () {
 		});
 	});
 
+	it( 'converts json with escaped quotes', function () {
+		return rollup.rollup({
+			entry: 'samples/quoted/main.js',
+			plugins: [ json() ]
+		}).then( function ( bundle ) {
+			var generated = bundle.generate();
+			var code = generated.code;
+
+			var fn = new Function( 'assert', code );
+			fn( assert );
+		});
+	});
+
 	it( 'generates named exports', function () {
 		return rollup.rollup({
 			entry: 'samples/named/main.js',
