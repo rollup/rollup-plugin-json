@@ -52,30 +52,33 @@ export default function json ( options = {} ) {
 				const namedExports = validKeys.map( key => {
 					const declaration = `export var ${key} = ${JSON.stringify( data[ key ] )};`;
 
+					const start = char;
+					const end = start + declaration.length;
+
 					// generate fake AST node while we're here
 					ast.body.push({
 						type: 'ExportNamedDeclaration',
 						start: char,
-						end: declaration.length,
+						end: char + declaration.length,
 						declaration: {
 							type: 'VariableDeclaration',
-							start: char + 7,
-							end: declaration.length,
+							start: start + 7,
+							end,
 							declarations: [
 								{
 									type: 'VariableDeclarator',
-									start: char + 11,
-									end: declaration.length - 1,
+									start: start + 11,
+									end: end - 1,
 									id: {
 										type: 'Identifier',
-										start: char + 11,
-										end: char + 11 + key.length,
+										start: start + 11,
+										end: start + 11 + key.length,
 										name: key
 									},
 									init: {
 										type: 'Literal',
-										start: char + 11 + key.length + 3,
-										end: declaration.length - 1,
+										start: start + 11 + key.length + 3,
+										end: end - 1,
 										value: null,
 										raw: 'null'
 									}
@@ -87,7 +90,7 @@ export default function json ( options = {} ) {
 						source: null
 					});
 
-					char += declaration.length + 1;
+					char = end + 1;
 					return declaration;
 				});
 
@@ -108,23 +111,26 @@ export default function json ( options = {} ) {
 				const defaultExportRows = validKeys.map( key => {
 					const row = `${key}: ${key}`;
 
+					const start = char;
+					const end = start + row.length;
+
 					defaultExportNode.declaration.properties.push({
 						type: 'Property',
-						start: char,
-						end: char + row.length,
+						start,
+						end,
 						method: false,
 						shorthand: false,
 						computed: false,
 						key: {
 							type: 'Identifier',
-							start: char,
-							end: key.length,
+							start,
+							end: start + key.length,
 							name: key
 						},
 						value: {
 							type: 'Identifier',
-							start: char + key.length + 2,
-							end: char + row.length,
+							start: start + key.length + 2,
+							end: end,
 							name: key
 						},
 						kind: 'init'
@@ -140,7 +146,10 @@ export default function json ( options = {} ) {
 				ast.body.push( defaultExportNode );
 				code = `${namedExports.join( '\n' )}\n${defaultExportString}`;
 
-				defaultExportNode.end = defaultExportNode.declaration.end = code.length - 1;
+				const end = code.length;
+
+				defaultExportNode.declaration.end = end - 1;
+				defaultExportNode.end = end;
 			}
 
 			ast.end = code.length;
