@@ -1,5 +1,9 @@
 # rollup-plugin-json changelog
 
+## 2.0.2
+
+* Generate correct fake AST
+
 ## 2.0.1
 
 * Return a `name`
