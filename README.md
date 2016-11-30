@@ -35,6 +35,7 @@ rollup({
       // but you can also specifically include/exclude files
       include: 'node_modules/**',  // Default: undefined
       exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],  // Default: undefined
+	  preferConst: true, // Default: false
     })
   ]
 });

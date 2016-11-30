@@ -239,4 +239,192 @@ describe( 'rollup-plugin-json', function () {
 			"sourceType": "module"
 		});
 	});
+
+	it( 'generates a correct fake AST with preferConst', function () {
+		var pkg = fs.readFileSync( 'samples/ast/package.json', 'utf-8' );
+		var transformed = json({ preferConst: true }).transform( pkg, 'package.json' );
+
+		assert.deepEqual( transformed.ast, {
+			"type": "Program",
+			"start": 0,
+			"end": 165,
+			"body": [
+				{
+					"type": "ExportNamedDeclaration",
+					"start": 0,
+					"end": 33,
+					"declaration": {
+						"type": "VariableDeclaration",
+						"start": 7,
+						"end": 33,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 13,
+								"end": 32,
+								"id": {
+									"type": "Identifier",
+									"start": 13,
+									"end": 17,
+									"name": "name"
+								},
+								"init": {
+									"type": "Literal",
+									"start": 20,
+									"end": 32,
+									"value": null,
+									"raw": "null"
+								}
+							}
+						],
+						"kind": "const"
+					},
+					"specifiers": [],
+					"source": null
+				},
+				{
+					"type": "ExportNamedDeclaration",
+					"start": 34,
+					"end": 65,
+					"declaration": {
+						"type": "VariableDeclaration",
+						"start": 41,
+						"end": 65,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 47,
+								"end": 64,
+								"id": {
+									"type": "Identifier",
+									"start": 47,
+									"end": 54,
+									"name": "version"
+								},
+								"init": {
+									"type": "Literal",
+									"start": 57,
+									"end": 64,
+									"value": null,
+									"raw": "null"
+								}
+							}
+						],
+						"kind": "const"
+					},
+					"specifiers": [],
+					"source": null
+				},
+				{
+					"type": "ExportNamedDeclaration",
+					"start": 66,
+					"end": 95,
+					"declaration": {
+						"type": "VariableDeclaration",
+						"start": 73,
+						"end": 95,
+						"declarations": [
+							{
+								"type": "VariableDeclarator",
+								"start": 79,
+								"end": 94,
+								"id": {
+									"type": "Identifier",
+									"start": 79,
+									"end": 86,
+									"name": "license"
+								},
+								"init": {
+									"type": "Literal",
+									"start": 89,
+									"end": 94,
+									"value": null,
+									"raw": "null"
+								}
+							}
+						],
+						"kind": "const"
+					},
+					"specifiers": [],
+					"source": null
+				},
+				{
+					"type": "ExportDefaultDeclaration",
+					"start": 96,
+					"end": 165,
+					"declaration": {
+						"type": "ObjectExpression",
+						"start": 111,
+						"end": 164,
+						"properties": [
+							{
+								"type": "Property",
+								"start": 114,
+								"end": 124,
+								"method": false,
+								"shorthand": false,
+								"computed": false,
+								"key": {
+									"type": "Identifier",
+									"start": 114,
+									"end": 118,
+									"name": "name"
+								},
+								"value": {
+									"type": "Identifier",
+									"start": 120,
+									"end": 124,
+									"name": "name"
+								},
+								"kind": "init"
+							},
+							{
+								"type": "Property",
+								"start": 127,
+								"end": 143,
+								"method": false,
+								"shorthand": false,
+								"computed": false,
+								"key": {
+									"type": "Identifier",
+									"start": 127,
+									"end": 134,
+									"name": "version"
+								},
+								"value": {
+									"type": "Identifier",
+									"start": 136,
+									"end": 143,
+									"name": "version"
+								},
+								"kind": "init"
+							},
+							{
+								"type": "Property",
+								"start": 146,
+								"end": 162,
+								"method": false,
+								"shorthand": false,
+								"computed": false,
+								"key": {
+									"type": "Identifier",
+									"start": 146,
+									"end": 153,
+									"name": "license"
+								},
+								"value": {
+									"type": "Identifier",
+									"start": 155,
+									"end": 162,
+									"name": "license"
+								},
+								"kind": "init"
+							}
+						]
+					}
+				}
+			],
+			"sourceType": "module"
+		});
+	});
 });
