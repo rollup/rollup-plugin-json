@@ -1,10 +1,22 @@
 import { createFilter, makeLegalIdentifier } from 'rollup-pluginutils';
 
+import path from 'path';
+
 export default function json ( options = {} ) {
 	const filter = createFilter( options.include, options.exclude );
 
 	return {
 		name: 'json',
+
+		resolveId: function(importee, importer) {
+			if (importee.slice (-5) === '!json') {
+
+				let dir = path.dirname(importer);
+				let newId = path.normalize(path.join(dir, importee.slice(0, importee.length - 5)));
+
+				return newId;
+			}
+		},
 
 		transform ( json, id ) {
 			if ( id.slice( -5 ) !== '.json' ) return null;
