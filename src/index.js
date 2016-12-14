@@ -144,7 +144,7 @@ export default function json ( options = {} ) {
 				const defaultExportString = `export default {\n\t${defaultExportRows.join( ',\n\t' )}\n};`;
 
 				ast.body.push( defaultExportNode );
-				code = `${namedExports.join( '\n' )}\n${defaultExportString}`;
+				code = `${namedExports.join( '\n' )}\n${defaultExportString}`.trim();
 
 				const end = code.length;
 
