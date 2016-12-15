@@ -10,7 +10,7 @@ export default function json ( options = {} ) {
 			if ( id.slice( -5 ) !== '.json' ) return null;
 			if ( !filter( id ) ) return null;
 
-			let code;
+			let code = '';
 
 			// Manipulating properties so keeping as `let`
 			// eslint-disable-next-line prefer-const
@@ -52,7 +52,8 @@ export default function json ( options = {} ) {
 				});
 
 				let char = 0;
-				const namedExports = validKeys.map( key => {
+
+				validKeys.forEach( key => {
 					const declarationType = options.preferConst ? 'const' : 'var';
 					const declaration = `export ${declarationType} ${key} = ${JSON.stringify( data[ key ] )};`;
 
@@ -95,7 +96,7 @@ export default function json ( options = {} ) {
 					});
 
 					char = end + 1;
-					return declaration;
+					code += `${declaration}\n`;
 				});
 
 				const defaultExportNode = {
@@ -145,12 +146,8 @@ export default function json ( options = {} ) {
 					return row;
 				}).concat( invalidKeys.map( key => `"${key}": ${JSON.stringify( data[ key ] )}` ) );
 
-				const defaultExportString = `export default {\n\t${defaultExportRows.join( ',\n\t' )}\n};`;
-
+				code += `export default {\n\t${defaultExportRows.join( ',\n\t' )}\n};`;
 				ast.body.push( defaultExportNode );
-				code = namedExports.length ?
-					`${namedExports.join( '\n' )}\n${defaultExportString}` :
-					defaultExportString;
 
 				const end = code.length;
 
