@@ -1,5 +1,10 @@
 # rollup-plugin-json changelog
 
+## 2.1.0
+
+* Add support for `preferConst` option ([#16](https://github.com/rollup/rollup-plugin-json/pull/16))
+* Handle JSON files with no valid identifier keys ([#19](https://github.com/rollup/rollup-plugin-json/issues/19))
+
 ## 2.0.2
 
 * Generate correct fake AST
