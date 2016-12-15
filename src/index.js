@@ -11,6 +11,9 @@ export default function json ( options = {} ) {
 			if ( !filter( id ) ) return null;
 
 			let code;
+
+			// Manipulating properties so keeping as `let`
+			// eslint-disable-next-line prefer-const
 			let ast = {
 				type: 'Program',
 				sourceType: 'module',
@@ -50,7 +53,8 @@ export default function json ( options = {} ) {
 
 				let char = 0;
 				const namedExports = validKeys.map( key => {
-					const declaration = `export var ${key} = ${JSON.stringify( data[ key ] )};`;
+					const declarationType = options.preferConst ? 'const' : 'var';
+					const declaration = `export ${declarationType} ${key} = ${JSON.stringify( data[ key ] )};`;
 
 					const start = char;
 					const end = start + declaration.length;
@@ -62,29 +66,29 @@ export default function json ( options = {} ) {
 						end: char + declaration.length,
 						declaration: {
 							type: 'VariableDeclaration',
-							start: start + 7,
+							start: start + 7, // 'export '.length
 							end,
 							declarations: [
 								{
 									type: 'VariableDeclarator',
-									start: start + 11,
+									start: start + 7 + declarationType.length + 1, // `export ${declarationType} `.length
 									end: end - 1,
 									id: {
 										type: 'Identifier',
-										start: start + 11,
-										end: start + 11 + key.length,
+										start: start + 7 + declarationType.length + 1, // `export ${declarationType} `.length
+										end: start + 7 + declarationType.length + 1 + key.length, // `export ${declarationType} ${key}`.length
 										name: key
 									},
 									init: {
 										type: 'Literal',
-										start: start + 11 + key.length + 3,
+										start: start + 7 + declarationType.length + 1 + key.length + 3, // `export ${declarationType} ${key} = `.length
 										end: end - 1,
 										value: null,
 										raw: 'null'
 									}
 								}
 							],
-							kind: 'var'
+							kind: declarationType
 						},
 						specifiers: [],
 						source: null
@@ -130,7 +134,7 @@ export default function json ( options = {} ) {
 						value: {
 							type: 'Identifier',
 							start: start + key.length + 2,
-							end: end,
+							end,
 							name: key
 						},
 						kind: 'init'
