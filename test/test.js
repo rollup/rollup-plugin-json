@@ -427,4 +427,17 @@ describe( 'rollup-plugin-json', function () {
 			"sourceType": "module"
 		});
 	});
+
+	it( 'handles JSON objects with no valid keys (#19)', function () {
+		return rollup.rollup({
+			entry: 'samples/no-valid-keys/main.js',
+			plugins: [ json() ]
+		}).then( function ( bundle ) {
+			var generated = bundle.generate();
+			var code = generated.code;
+
+			var fn = new Function( 'assert', code );
+			fn( assert );
+		});
+	});
 });
