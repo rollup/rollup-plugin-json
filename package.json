@@ -25,10 +25,7 @@
     "dist",
     "README.md"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rollup/rollup-plugin-json.git"
-  },
+  "repository": "rollup/rollup-plugin-json",
   "dependencies": {
     "rollup-pluginutils": "^1.5.2"
   }
