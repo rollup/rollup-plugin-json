@@ -35,7 +35,10 @@ rollup({
       // but you can also specifically include/exclude files
       include: 'node_modules/**',  // Default: undefined
       exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],  // Default: undefined
-	  preferConst: true, // Default: false
+      
+      // Keys of the JSON object will be declared with 'var' by default,
+      // but setting preferConst to true will use 'const'
+      preferConst: true,  // Default: false
     })
   ]
 });
