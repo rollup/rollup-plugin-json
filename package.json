@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-json",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "main": "dist/rollup-plugin-json.cjs.js",
   "module": "dist/rollup-plugin-json.es.js",
   "jsnext:main": "dist/rollup-plugin-json.es.js",
@@ -18,7 +18,8 @@
     "pretest": "npm run build",
     "build": "rollup -c",
     "prebuild": "rm -rf dist/*",
-    "prepublish": "npm test"
+    "prepublish": "npm test",
+    "lint": "eslint src"
   },
   "files": [
     "src",

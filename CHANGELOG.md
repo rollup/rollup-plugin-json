@@ -1,5 +1,9 @@
 # rollup-plugin-json changelog
 
+## 2.1.1
+
+* Add license to package.json ([#25](https://github.com/rollup/rollup-plugin-json/pull/25))
+
 ## 2.1.0
 
 * Add support for `preferConst` option ([#16](https://github.com/rollup/rollup-plugin-json/pull/16))
