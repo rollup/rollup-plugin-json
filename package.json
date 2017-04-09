@@ -25,6 +25,7 @@
     "dist",
     "README.md"
   ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rollup/rollup-plugin-json.git"
