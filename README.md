@@ -41,6 +41,26 @@ rollup({
 });
 ```
 
+##### Take Note
+
+If you use this plugin alongside `rollup-plugin-babel` remember to tell it to not parse your json files:
+
+```js
+rollup({
+  entry: 'main.js',
+  plugins: [
+    json({
+      // All JSON files will be parsed by default,
+      // but you can also specifically include/exclude files
+      include: 'node_modules/**',  // Default: undefined
+      exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],  // Default: undefined
+    }),
+    babel({
+      exclude: ['node_modules/**', '*.json']
+    })
+  ]
+});
+```
 
 ## License
 
