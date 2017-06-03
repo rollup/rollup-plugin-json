@@ -473,7 +473,7 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.catch(err => {
-				assert.equal(err.message, 'Unexpected token o in JSON at position 1');
+				assert.equal(err.message.indexOf('Unexpected token o'), 0);
 			});
 	});
 });
