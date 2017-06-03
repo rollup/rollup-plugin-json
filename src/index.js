@@ -1,14 +1,14 @@
 import { createFilter, makeLegalIdentifier } from 'rollup-pluginutils';
 
-export default function json ( options = {} ) {
-	const filter = createFilter( options.include, options.exclude );
+export default function json(options = {}) {
+	const filter = createFilter(options.include, options.exclude);
 
 	return {
 		name: 'json',
 
-		transform ( json, id ) {
-			if ( id.slice( -5 ) !== '.json' ) return null;
-			if ( !filter( id ) ) return null;
+		transform(json, id) {
+			if (id.slice(-5) !== '.json') return null;
+			if (!filter(id)) return null;
 
 			let code = '';
 
@@ -22,7 +22,7 @@ export default function json ( options = {} ) {
 				body: []
 			};
 
-			if ( json[0] !== '{' ) {
+			if (json[0] !== '{') {
 				code = `export default ${json};`;
 
 				ast.body.push({
@@ -38,25 +38,25 @@ export default function json ( options = {} ) {
 					}
 				});
 			} else {
-				const data = JSON.parse( json );
+				const data = JSON.parse(json);
 				const indent = 'indent' in options ? options.indent : '\t';
 
 				const validKeys = [];
 				const invalidKeys = [];
 
-				Object.keys( data ).forEach( key => {
-					if ( key === makeLegalIdentifier( key ) ) {
-						validKeys.push( key );
+				Object.keys(data).forEach(key => {
+					if (key === makeLegalIdentifier(key)) {
+						validKeys.push(key);
 					} else {
-						invalidKeys.push( key );
+						invalidKeys.push(key);
 					}
 				});
 
 				let char = 0;
 
-				validKeys.forEach( key => {
+				validKeys.forEach(key => {
 					const declarationType = options.preferConst ? 'const' : 'var';
-					const declaration = `export ${declarationType} ${key} = ${JSON.stringify( data[ key ] )};`;
+					const declaration = `export ${declarationType} ${key} = ${JSON.stringify(data[key])};`;
 
 					const start = char;
 					const end = start + declaration.length;
@@ -83,7 +83,12 @@ export default function json ( options = {} ) {
 									},
 									init: {
 										type: 'Literal',
-										start: start + 7 + declarationType.length + 1 + key.length + 3, // `export ${declarationType} ${key} = `.length
+										start: start +
+											7 +
+											declarationType.length +
+											1 +
+											key.length +
+											3, // `export ${declarationType} ${key} = `.length
 										end: end - 1,
 										value: null,
 										raw: 'null'
@@ -112,43 +117,47 @@ export default function json ( options = {} ) {
 					}
 				};
 
-				char += ( 17 + indent.length ); // 'export default {\n\t'.length'
+				char += 17 + indent.length; // 'export default {\n\t'.length'
 
-				const defaultExportRows = validKeys.map( key => {
-					const row = `${key}: ${key}`;
+				const defaultExportRows = validKeys
+					.map(key => {
+						const row = `${key}: ${key}`;
 
-					const start = char;
-					const end = start + row.length;
+						const start = char;
+						const end = start + row.length;
 
-					defaultExportNode.declaration.properties.push({
-						type: 'Property',
-						start,
-						end,
-						method: false,
-						shorthand: false,
-						computed: false,
-						key: {
-							type: 'Identifier',
+						defaultExportNode.declaration.properties.push({
+							type: 'Property',
 							start,
-							end: start + key.length,
-							name: key
-						},
-						value: {
-							type: 'Identifier',
-							start: start + key.length + 2,
 							end,
-							name: key
-						},
-						kind: 'init'
-					});
+							method: false,
+							shorthand: false,
+							computed: false,
+							key: {
+								type: 'Identifier',
+								start,
+								end: start + key.length,
+								name: key
+							},
+							value: {
+								type: 'Identifier',
+								start: start + key.length + 2,
+								end,
+								name: key
+							},
+							kind: 'init'
+						});
 
-					char += row.length + ( 2 + indent.length ); // ',\n\t'.length
+						char += row.length + (2 + indent.length); // ',\n\t'.length
 
-					return row;
-				}).concat( invalidKeys.map( key => `"${key}": ${JSON.stringify( data[ key ] )}` ) );
+						return row;
+					})
+					.concat(
+						invalidKeys.map(key => `"${key}": ${JSON.stringify(data[key])}`)
+					);
 
-				code += `export default {\n${indent}${defaultExportRows.join( `,\n${indent}` )}\n};`;
-				ast.body.push( defaultExportNode );
+				code += `export default {\n${indent}${defaultExportRows.join(`,\n${indent}`)}\n};`;
+				ast.body.push(defaultExportNode);
 
 				const end = code.length;
 
