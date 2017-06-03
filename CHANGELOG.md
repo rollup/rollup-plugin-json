@@ -1,5 +1,9 @@
 # rollup-plugin-json changelog
 
+## 2.2.0
+
+* Add `indent` option ([#24](https://github.com/rollup/rollup-plugin-json/issues/24))
+
 ## 2.1.1
 
 * Add license to package.json ([#25](https://github.com/rollup/rollup-plugin-json/pull/25))
