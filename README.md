@@ -41,7 +41,11 @@ export default {
       
       // for tree-shaking, properties will be declared as
       // variables, using either `var` or `const`
-      preferConst: true // Default: false
+      preferConst: true, // Default: false
+
+      // specify indentation for the generated default export —
+      // defaults to '\t'
+      indent: '  '
     })
   ]
 };
