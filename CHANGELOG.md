@@ -1,5 +1,9 @@
 # rollup-plugin-json changelog
 
+## 2.3.0
+
+* Always parse JSON, so malformed JSON is identified at bundle time ([#27](https://github.com/rollup/rollup-plugin-json/issues/27))
+
 ## 2.2.0
 
 * Add `indent` option ([#24](https://github.com/rollup/rollup-plugin-json/issues/24))
