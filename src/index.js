@@ -10,11 +10,10 @@ export default function json(options = {}) {
 			if (id.slice(-5) !== '.json') return null;
 			if (!filter(id)) return null;
 
+			const data = JSON.parse(json);
 			let code = '';
 
-			// Manipulating properties so keeping as `let`
-			// eslint-disable-next-line prefer-const
-			let ast = {
+			const ast = {
 				type: 'Program',
 				sourceType: 'module',
 				start: 0,
@@ -22,7 +21,7 @@ export default function json(options = {}) {
 				body: []
 			};
 
-			if (json[0] !== '{') {
+			if (Object.prototype.toString.call(data) !== '[object Object]') {
 				code = `export default ${json};`;
 
 				ast.body.push({
@@ -38,7 +37,6 @@ export default function json(options = {}) {
 					}
 				});
 			} else {
-				const data = JSON.parse(json);
 				const indent = 'indent' in options ? options.indent : '\t';
 
 				const validKeys = [];

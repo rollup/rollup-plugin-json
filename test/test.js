@@ -16,7 +16,7 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.then(bundle => {
-				const generated = bundle.generate();
+				const generated = bundle.generate({ format: 'cjs' });
 				const code = generated.code;
 
 				const fn = new Function('assert', code);
@@ -54,7 +54,7 @@ describe('rollup-plugin-json', () => {
 				plugins: [npm({ extensions: ['.js', '.json'] }), json()]
 			})
 			.then(bundle => {
-				const generated = bundle.generate();
+				const generated = bundle.generate({ format: 'cjs' });
 				const code = generated.code;
 
 				const fn = new Function('assert', code);
@@ -448,7 +448,7 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.then(bundle => {
-				const generated = bundle.generate();
+				const generated = bundle.generate({ format: 'cjs' });
 				const code = generated.code;
 
 				const fn = new Function('assert', code);
@@ -464,6 +464,17 @@ describe('rollup-plugin-json', () => {
 			).code,
 			read('samples/custom-indent/output.js')
 		);
+	});
+
+	it('handles garbage', () => {
+		return rollup
+			.rollup({
+				entry: 'samples/garbage/main.js',
+				plugins: [json()]
+			})
+			.catch(err => {
+				assert.equal(err.message, 'Unexpected token o in JSON at position 1');
+			});
 	});
 });
 
