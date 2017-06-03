@@ -24,21 +24,27 @@ npm install --save-dev rollup-plugin-json
 ## Usage
 
 ```js
-import { rollup } from 'rollup';
+// rollup.config.js
 import json from 'rollup-plugin-json';
 
-rollup({
-  entry: 'main.js',
+export default {
+  entry: 'src/main.js',
+  dest: 'dist/bundle.js',
+  format: 'iife',
+
   plugins: [
     json({
       // All JSON files will be parsed by default,
       // but you can also specifically include/exclude files
-      include: 'node_modules/**',  // Default: undefined
-      exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],  // Default: undefined
-      preferConst: true, // Default: false
+      include: 'node_modules/**',
+      exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],
+      
+      // for tree-shaking, properties will be declared as
+      // variables, using either `var` or `const`
+      preferConst: true // Default: false
     })
   ]
-});
+};
 ```
 
 
