@@ -440,4 +440,15 @@ describe( 'rollup-plugin-json', function () {
 			fn( assert );
 		});
 	});
+
+	it( 'uses custom indent string', function () {
+		assert.equal(
+			json({ indent: '  ' }).transform(read(`samples/custom-indent/input.json`),'input.json').code,
+			read('samples/custom-indent/output.js')
+		)
+	});
 });
+
+function read(file) {
+	return fs.readFileSync(file, 'utf-8');
+}

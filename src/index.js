@@ -39,6 +39,7 @@ export default function json ( options = {} ) {
 				});
 			} else {
 				const data = JSON.parse( json );
+				const indent = 'indent' in options ? options.indent : '\t';
 
 				const validKeys = [];
 				const invalidKeys = [];
@@ -111,7 +112,7 @@ export default function json ( options = {} ) {
 					}
 				};
 
-				char += 18; // 'export default {\n\t'.length'
+				char += ( 17 + indent.length ); // 'export default {\n\t'.length'
 
 				const defaultExportRows = validKeys.map( key => {
 					const row = `${key}: ${key}`;
@@ -141,12 +142,12 @@ export default function json ( options = {} ) {
 						kind: 'init'
 					});
 
-					char += row.length + 3; // ',\n\t'.length
+					char += row.length + ( 2 + indent.length ); // ',\n\t'.length
 
 					return row;
 				}).concat( invalidKeys.map( key => `"${key}": ${JSON.stringify( data[ key ] )}` ) );
 
-				code += `export default {\n\t${defaultExportRows.join( ',\n\t' )}\n};`;
+				code += `export default {\n${indent}${defaultExportRows.join( `,\n${indent}` )}\n};`;
 				ast.body.push( defaultExportNode );
 
 				const end = code.length;
