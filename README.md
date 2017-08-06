@@ -39,8 +39,11 @@ export default {
       include: 'node_modules/**',
       exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],
       
-      // for tree-shaking, properties will be declared as
-      // variables, using either `var` or `const`
+      // for tree-shaking, properties with valid keys will be
+      // declared as variables with export
+      namedExports: true, // Default: true
+
+      // declare variables using either `var` or `const`
       preferConst: true, // Default: false
 
       // specify indentation for the generated default export —

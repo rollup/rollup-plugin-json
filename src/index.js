@@ -3,6 +3,8 @@ import { createFilter, makeLegalIdentifier } from 'rollup-pluginutils';
 export default function json(options = {}) {
 	const filter = createFilter(options.include, options.exclude);
 
+	const namedExports = options.namedExports !== false;
+
 	return {
 		name: 'json',
 
@@ -21,7 +23,7 @@ export default function json(options = {}) {
 				body: []
 			};
 
-			if (Object.prototype.toString.call(data) !== '[object Object]') {
+			if (!namedExports || Object.prototype.toString.call(data) !== '[object Object]') {
 				code = `export default ${json};`;
 
 				ast.body.push({
