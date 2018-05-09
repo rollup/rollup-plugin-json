@@ -12,11 +12,12 @@ describe('rollup-plugin-json', () => {
 	it('converts json', () => {
 		return rollup
 			.rollup({
-				entry: 'samples/basic/main.js',
+				input: 'samples/basic/main.js',
 				plugins: [json()]
 			})
-			.then(bundle => {
-				const fn = new Function('assert', bundle.generate({ format: 'cjs' }).code);
+			.then(bundle => bundle.generate({ format: 'cjs' }))
+			.then(({code}) => {
+				const fn = new Function('assert', code);
 				fn(assert);
 			});
 	});
@@ -24,11 +25,12 @@ describe('rollup-plugin-json', () => {
 	it('handles arrays', () => {
 		return rollup
 			.rollup({
-				entry: 'samples/array/main.js',
+				input: 'samples/array/main.js',
 				plugins: [json()]
 			})
-			.then(bundle => {
-				const fn = new Function('assert', bundle.generate({ format: 'cjs' }).code);
+			.then(bundle => bundle.generate({ format: 'cjs' }))
+			.then(({code}) => {
+				const fn = new Function('assert', code);
 				fn(assert);
 			});
 	});
@@ -36,11 +38,12 @@ describe('rollup-plugin-json', () => {
 	it('handles literals', () => {
 		return rollup
 			.rollup({
-				entry: 'samples/literal/main.js',
+				input: 'samples/literal/main.js',
 				plugins: [json()]
 			})
-			.then(bundle => {
-				const fn = new Function('assert', bundle.generate({ format: 'cjs' }).code);
+			.then(bundle => bundle.generate({ format: 'cjs' }))
+			.then(({code}) => {
+				const fn = new Function('assert', code);
 				fn(assert);
 			});
 	});
@@ -48,12 +51,11 @@ describe('rollup-plugin-json', () => {
 	it('generates named exports', () => {
 		return rollup
 			.rollup({
-				entry: 'samples/named/main.js',
+				input: 'samples/named/main.js',
 				plugins: [json()]
 			})
-			.then(bundle => {
-				const code = bundle.generate({ format: 'cjs' }).code;
-
+			.then(bundle => bundle.generate({ format: 'cjs' }))
+			.then(({code}) => {
 				const exports = {};
 				const fn = new Function('exports', code);
 				fn(exports);
@@ -70,11 +72,12 @@ describe('rollup-plugin-json', () => {
 	it('resolves extensionless imports in conjunction with the node-resolve plugin', () => {
 		return rollup
 			.rollup({
-				entry: 'samples/extensionless/main.js',
+				input: 'samples/extensionless/main.js',
 				plugins: [resolve({ extensions: ['.js', '.json'] }), json()]
 			})
-			.then(bundle => {
-				const fn = new Function('assert', bundle.generate({ format: 'cjs' }).code);
+			.then(bundle => bundle.generate({ format: 'cjs' }))
+			.then(({code}) => {
+				const fn = new Function('assert', code);
 				fn(assert);
 			});
 	});
@@ -82,11 +85,12 @@ describe('rollup-plugin-json', () => {
 	it('handles JSON objects with no valid keys (#19)', () => {
 		return rollup
 			.rollup({
-				entry: 'samples/no-valid-keys/main.js',
+				input: 'samples/no-valid-keys/main.js',
 				plugins: [json()]
 			})
-			.then(bundle => {
-				const fn = new Function('assert', bundle.generate({ format: 'cjs' }).code);
+			.then(bundle => bundle.generate({ format: 'cjs' }))
+			.then(({code}) => {
+				const fn = new Function('assert', code);
 				fn(assert);
 			});
 	});
@@ -94,7 +98,7 @@ describe('rollup-plugin-json', () => {
 	it('handles garbage', () => {
 		return rollup
 			.rollup({
-				entry: 'samples/garbage/main.js',
+				input: 'samples/garbage/main.js',
 				plugins: [json()]
 			})
 			.then(() => {
