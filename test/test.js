@@ -16,8 +16,8 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.then(bundle => bundle.generate({ format: 'cjs' }))
-			.then(({code}) => {
-				const fn = new Function('assert', code);
+			.then(generated => {
+				const fn = new Function('assert', generated.code);
 				fn(assert);
 			});
 	});
@@ -29,8 +29,8 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.then(bundle => bundle.generate({ format: 'cjs' }))
-			.then(({code}) => {
-				const fn = new Function('assert', code);
+			.then(generated => {
+				const fn = new Function('assert', generated.code);
 				fn(assert);
 			});
 	});
@@ -42,8 +42,8 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.then(bundle => bundle.generate({ format: 'cjs' }))
-			.then(({code}) => {
-				const fn = new Function('assert', code);
+			.then(generated => {
+				const fn = new Function('assert', generated.code);
 				fn(assert);
 			});
 	});
@@ -55,14 +55,14 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.then(bundle => bundle.generate({ format: 'cjs' }))
-			.then(({code}) => {
+			.then(generated => {
 				const exports = {};
-				const fn = new Function('exports', code);
+				const fn = new Function('exports', generated.code);
 				fn(exports);
 
 				assert.equal(exports.version, '1.33.7');
 				assert.equal(
-					code.indexOf('this-should-be-excluded'),
+					generated.code.indexOf('this-should-be-excluded'),
 					-1,
 					'should exclude unused properties'
 				);
@@ -76,8 +76,8 @@ describe('rollup-plugin-json', () => {
 				plugins: [resolve({ extensions: ['.js', '.json'] }), json()]
 			})
 			.then(bundle => bundle.generate({ format: 'cjs' }))
-			.then(({code}) => {
-				const fn = new Function('assert', code);
+			.then(generated => {
+				const fn = new Function('assert', generated.code);
 				fn(assert);
 			});
 	});
@@ -89,8 +89,8 @@ describe('rollup-plugin-json', () => {
 				plugins: [json()]
 			})
 			.then(bundle => bundle.generate({ format: 'cjs' }))
-			.then(({code}) => {
-				const fn = new Function('assert', code);
+			.then(generated => {
+				const fn = new Function('assert', generated.code);
 				fn(assert);
 			});
 	});
