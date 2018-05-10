@@ -21,8 +21,9 @@ export default function json(options = {}) {
 				body: []
 			};
 
+			const stringifySpace = 'stringifySpace' in options ? options.stringifySpace : null;
 			if (Object.prototype.toString.call(data) !== '[object Object]') {
-				code = `export default ${json};`;
+				code = `export default ${JSON.stringify(data, null, stringifySpace)};\n`;
 
 				ast.body.push({
 					type: 'ExportDefaultDeclaration',
@@ -54,7 +55,7 @@ export default function json(options = {}) {
 
 				validKeys.forEach(key => {
 					const declarationType = options.preferConst ? 'const' : 'var';
-					const declaration = `export ${declarationType} ${key} = ${JSON.stringify(data[key])};`;
+					const declaration = `export ${declarationType} ${key} = ${JSON.stringify(data[key], null, stringifySpace)};`;
 
 					const start = char;
 					const end = start + declaration.length;
@@ -151,7 +152,7 @@ export default function json(options = {}) {
 						return row;
 					})
 					.concat(
-						invalidKeys.map(key => `"${key}": ${JSON.stringify(data[key])}`)
+						invalidKeys.map(key => `"${key}": ${JSON.stringify(data[key], null, stringifySpace)}`)
 					);
 
 				code += `export default {\n${indent}${defaultExportRows.join(`,\n${indent}`)}\n};`;

@@ -466,6 +466,30 @@ describe('rollup-plugin-json', () => {
 		);
 	});
 
+	it('uses custom stringifySpace string', () => {
+		assert.equal(
+			json({ stringifySpace: 0 }).transform(
+				read(`samples/custom-stringifySpace/input.json`),
+				'input.json'
+			).code,
+			read('samples/custom-stringifySpace/output.js')
+		);
+		assert.equal(
+			json({ stringifySpace: '\t' }).transform(
+				read(`samples/custom-stringifySpace/input.json`),
+				'input.json'
+			).code,
+			read('samples/custom-stringifySpace/output-tab.js')
+		);
+		assert.equal(
+			json({ stringifySpace: 2 }).transform(
+				read(`samples/custom-stringifySpace/input.json`),
+				'input.json'
+			).code,
+			read('samples/custom-stringifySpace/output-2.js')
+		);
+	});
+
 	it('handles garbage', () => {
 		return rollup
 			.rollup({
