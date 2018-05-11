@@ -1,13 +1,13 @@
 import {createFilter, dataToEsm} from 'rollup-pluginutils';
 
-export default function json(options = {}) {
+export default function json (options = {}) {
 	const filter = createFilter(options.include, options.exclude);
 	const indent = 'indent' in options ? options.indent : '\t';
 
 	return {
 		name: 'json',
 
-		transform(json, id) {
+		transform (json, id) {
 			if (id.slice(-5) !== '.json') return null;
 			if (!filter(id)) return null;
 

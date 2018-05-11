@@ -140,6 +140,6 @@ describe('rollup-plugin-json', () => {
 	});
 });
 
-function read(file) {
+function read (file) {
 	return fs.readFileSync(file, 'utf-8');
 }
