@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-json",
-  "version": "2.3.1",
+  "version": "3.0.0",
   "main": "dist/rollup-plugin-json.cjs.js",
   "module": "dist/rollup-plugin-json.es.js",
   "jsnext:main": "dist/rollup-plugin-json.es.js",
