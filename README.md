@@ -28,9 +28,11 @@ npm install --save-dev rollup-plugin-json
 import json from 'rollup-plugin-json';
 
 export default {
-  entry: 'src/main.js',
-  dest: 'dist/bundle.js',
-  format: 'iife',
+  input: 'src/main.js',
+  output: {
+    file: 'dist/bundle.js',
+    format: 'iife'
+  },
 
   plugins: [
     json({
@@ -38,7 +40,7 @@ export default {
       // but you can also specifically include/exclude files
       include: 'node_modules/**',
       exclude: [ 'node_modules/foo/**', 'node_modules/bar/**' ],
-      
+
       // for tree-shaking, properties will be declared as
       // variables, using either `var` or `const`
       preferConst: true, // Default: false
