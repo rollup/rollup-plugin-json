@@ -30,5 +30,8 @@
   "repository": "rollup/rollup-plugin-json",
   "dependencies": {
     "rollup-pluginutils": "^2.0.1"
+  },
+  "peerDependencies": {
+    "rollup": "< 0.59.0"
   }
 }
