@@ -1,5 +1,10 @@
 # rollup-plugin-json changelog
 
+## 2.3.1
+*2018-05-11*
+* Update example in readme ([#38](https://github.com/rollup/rollup-plugin-json/issues/38))
+* Warn when using this version with upcoming rollup versions
+
 ## 2.3.0
 
 * Always parse JSON, so malformed JSON is identified at bundle time ([#27](https://github.com/rollup/rollup-plugin-json/issues/27))
