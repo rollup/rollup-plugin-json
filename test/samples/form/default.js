@@ -11,5 +11,6 @@ export default {
 	"invalid-key": 1,
 	nested: nested,
 	array: array,
-	"function": "not used"
+	"function": "not used",
+	"null": null
 };
