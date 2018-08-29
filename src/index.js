@@ -17,7 +17,11 @@ export default function json (options = {}) {
 			}
 
 			return {
-				code: dataToEsm(data, {preferConst: options.preferConst, indent}),
+				code: dataToEsm(data, {
+					preferConst: options.preferConst,
+					compact: options.compact,
+					indent
+				}),
 				map: {mappings: ''}
 			};
 		}

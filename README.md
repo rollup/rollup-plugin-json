@@ -47,7 +47,10 @@ export default {
 
       // specify indentation for the generated default export —
       // defaults to '\t'
-      indent: '  '
+      indent: '  ',
+
+      // ignores indent and generates the smallest code
+      compact: true // Default: false
     })
   ]
 };
