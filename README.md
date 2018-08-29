@@ -50,7 +50,10 @@ export default {
       indent: '  ',
 
       // ignores indent and generates the smallest code
-      compact: true // Default: false
+      compact: true, // Default: false
+
+      // generate a named export for every property of the JSON object
+      namedExports: true // Default: true
     })
   ]
 };

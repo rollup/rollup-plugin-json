@@ -20,6 +20,7 @@ export default function json (options = {}) {
 				code: dataToEsm(data, {
 					preferConst: options.preferConst,
 					compact: options.compact,
+					namedExports: options.namedExports,
 					indent
 				}),
 				map: {mappings: ''}
