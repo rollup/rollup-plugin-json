@@ -2,6 +2,7 @@
 
 ## 3.1.0
 *unreleased*
+* Expose "compact" and "namedExports" options ([#45](https://github.com/rollup/rollup-plugin-json/issues/45))
 * Update rollup-pluginutils to support null values in JSON ([#44](https://github.com/rollup/rollup-plugin-json/issues/44))
 
 ## 3.0.0
