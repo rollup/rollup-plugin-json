@@ -1,5 +1,9 @@
 # rollup-plugin-json changelog
 
+## 3.1.0
+*unreleased*
+* Update rollup-pluginutils to support null values in JSON ([#44](https://github.com/rollup/rollup-plugin-json/issues/44))
+
 ## 3.0.0
 *2018-05-11*
 * No longer create a fake AST to support tree-shaking with upcoming versions of rollup ([#41](https://github.com/rollup/rollup-plugin-json/issues/41))
