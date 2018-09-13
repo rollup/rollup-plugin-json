@@ -47,7 +47,13 @@ export default {
 
       // specify indentation for the generated default export —
       // defaults to '\t'
-      indent: '  '
+      indent: '  ',
+
+      // ignores indent and generates the smallest code
+      compact: true, // Default: false
+
+      // generate a named export for every property of the JSON object
+      namedExports: true // Default: true
     })
   ]
 };

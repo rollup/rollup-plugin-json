@@ -138,6 +138,20 @@ describe('rollup-plugin-json', () => {
 			read('samples/form/customIndent.js')
 		);
 	});
+
+	it('generates correct code with compact=true', () => {
+		assert.deepEqual(
+			json({ compact: true }).transform(read('samples/form/input.json'), 'input.json').code + '\n',
+			read('samples/form/compact.js')
+		);
+	});
+
+	it('generates correct code with namedExports=false', () => {
+		assert.deepEqual(
+			json({ namedExports: false }).transform(read('samples/form/input.json'), 'input.json').code + '\n',
+			read('samples/form/namedExports.js')
+		);
+	});
 });
 
 function read (file) {
