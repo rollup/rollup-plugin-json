@@ -1,9 +1,10 @@
 # rollup-plugin-json changelog
 
 ## 3.1.0
-*unreleased*
+*2018-09-13*
 * Expose "compact" and "namedExports" options ([#45](https://github.com/rollup/rollup-plugin-json/issues/45))
 * Update rollup-pluginutils to support null values in JSON ([#44](https://github.com/rollup/rollup-plugin-json/issues/44))
+* Update dependencies and ensure rollup@1.0 compatibility ([#46](https://github.com/rollup/rollup-plugin-json/issues/46))
 
 ## 3.0.0
 *2018-05-11*
