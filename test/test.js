@@ -56,13 +56,15 @@ describe('rollup-plugin-json', () => {
 			})
 			.then(bundle => bundle.generate({ format: 'cjs' }))
 			.then(generated => {
+				// rollup@1.0/0.6x compatibility
+				const code = generated.output ? generated.output[0].code : generated.code;
 				const exports = {};
-				const fn = new Function('exports', generated.code);
+				const fn = new Function('exports', code);
 				fn(exports);
 
 				assert.equal(exports.version, '1.33.7');
 				assert.equal(
-					generated.code.indexOf('this-should-be-excluded'),
+					code.indexOf('this-should-be-excluded'),
 					-1,
 					'should exclude unused properties'
 				);
