@@ -12,7 +12,8 @@ export default function json (options = {}) {
 			if (!filter(id)) return null;
 
 			const data = JSON.parse(json);
-			if (Object.prototype.toString.call(data) !== '[object Object]') {
+			const datatype = Object.prototype.toString.call(data);
+			if (datatype !== '[object Object]' && datatype !== '[object Array]') {
 				return {code: `export default ${json};\n`, map: {mappings: ''}};
 			}
 
