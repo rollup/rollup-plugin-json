@@ -169,6 +169,13 @@ describe('rollup-plugin-json', () => {
 			'export default[1,{x:1}];'
 		);
 	});
+
+	it('handles empty keys', () => {
+		assert.deepEqual(
+			json().transform(`{"":"a", "b": "c"}`, 'input.json').code,
+			'export var b = "c";\nexport default {\n\t"": "a",\n\tb: b\n};\n'
+		);
+	});
 });
 
 function read(file) {
