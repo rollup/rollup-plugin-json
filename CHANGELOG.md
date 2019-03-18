@@ -1,5 +1,9 @@
 # rollup-plugin-json changelog
 
+## 4.0.0
+*2019-03-18*
+* Pass all JSON data through dataToEsm to consistently support "compact" formatting, support empty keys, abandon Node 4 support, add prettier, update dependencies ([#53](https://github.com/rollup/rollup-plugin-json/issues/53))
+
 ## 3.1.0
 *2018-09-13*
 * Expose "compact" and "namedExports" options ([#45](https://github.com/rollup/rollup-plugin-json/issues/45))
