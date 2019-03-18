@@ -114,10 +114,9 @@ describe('rollup-plugin-json', () => {
 	});
 
 	it('does not generate source maps', () => {
-		assert.deepEqual(
-			json().transform(read('samples/form/input.json'), 'input.json').map,
-			{ mappings: '' }
-		);
+		assert.deepEqual(json().transform(read('samples/form/input.json'), 'input.json').map, {
+			mappings: ''
+		});
 	});
 
 	it('generates properly formatted code', () => {
@@ -150,12 +149,35 @@ describe('rollup-plugin-json', () => {
 
 	it('generates correct code with namedExports=false', () => {
 		assert.deepEqual(
-			json({ namedExports: false }).transform(read('samples/form/input.json'), 'input.json').code + '\n',
+			json({ namedExports: false }).transform(read('samples/form/input.json'), 'input.json').code +
+				'\n',
 			read('samples/form/namedExports.js')
+		);
+	});
+
+	it('correctly formats arrays with compact=true', () => {
+		assert.deepEqual(
+			json({ compact: true }).transform(
+				`[
+  1,
+  {
+    "x": 1
+  }
+]`,
+				'input.json'
+			).code,
+			'export default[1,{x:1}];'
+		);
+	});
+
+	it('handles empty keys', () => {
+		assert.deepEqual(
+			json().transform(`{"":"a", "b": "c"}`, 'input.json').code,
+			'export var b = "c";\nexport default {\n\t"": "a",\n\tb: b\n};\n'
 		);
 	});
 });
 
-function read (file) {
+function read(file) {
 	return fs.readFileSync(file, 'utf-8');
 }
