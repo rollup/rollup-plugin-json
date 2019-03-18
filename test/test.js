@@ -154,6 +154,18 @@ describe('rollup-plugin-json', () => {
 			read('samples/form/namedExports.js')
 		);
 	});
+
+	it('correctly formats arrays with compact=true', () => {
+		assert.deepEqual(
+			json({ compact: true }).transform(`[
+  1,
+  {
+    "x": 1
+  }
+]`, 'input.json').code,
+			'export default[1,{x:1}];'
+		);
+	});
 });
 
 function read (file) {
