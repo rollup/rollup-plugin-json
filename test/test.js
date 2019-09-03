@@ -142,7 +142,7 @@ describe('rollup-plugin-json', () => {
 
 	it('generates correct code with compact=true', () => {
 		assert.deepEqual(
-			json({ compact: true }).transform(read('samples/form/input.json'), 'input.json').code + '\n',
+			json({ compact: true }).transform(read('samples/form/input.json'), 'input.json').code,
 			read('samples/form/compact.js')
 		);
 	});
