@@ -1,3 +1,7 @@
+# Moving
+
+We're in the process of moving this plugin to the new Rollup plugins monorepo. Please stand by.
+
 # rollup-plugin-json
 
 Convert .json files to ES6 modules:
